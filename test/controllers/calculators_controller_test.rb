@@ -31,4 +31,15 @@ class CalculatorsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "6", response.body
   end
   
+  test "should return sum of numbers with ; delimiter" do
+    post calculators_add_url, params: { numbers: "//;\n1;2;3" }
+    assert_response :success
+    assert_equal "6", response.body
+  end
+  
+  test "should return sum of numbers with & delimiter" do
+    post calculators_add_url, params: { numbers: "//&\n1&2&3" }
+    assert_response :success
+    assert_equal "6", response.body
+  end
 end
