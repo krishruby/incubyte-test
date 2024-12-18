@@ -10,6 +10,12 @@ class CalculatorsController < ApplicationController
       numbers = numbers_string.split(/[\n,]/).map(&:to_i)
     end
     
+    negative_numbers = numbers.select { |num| num < 0 }
+    if negative_numbers.any?
+      render plain: "negative numbers not allowed #{negative_numbers.join(', ')}", status: :unprocessable_entity
+      return
+    end
+
     total = numbers.sum
     render plain: total.to_s  
   end

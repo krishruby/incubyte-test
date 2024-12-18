@@ -42,4 +42,16 @@ class CalculatorsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal "6", response.body
   end
+
+  test "should raise error for negative numbers" do
+    post calculators_add_url, params: { numbers: "//;\n1;-2;3" }
+    assert_response :unprocessable_entity 
+    assert_includes response.body, "negative numbers not allowed -2"
+  end
+
+  test "should raise error for multiple negative numbers" do
+    post calculators_add_url, params: { numbers: "//;\n-1;-2;-3" }
+    assert_response :unprocessable_entity
+    assert_includes response.body, "negative numbers not allowed -1, -2, -3"
+  end
 end
