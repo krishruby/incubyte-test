@@ -15,6 +15,7 @@ class CalculatorsController < ApplicationController
       render plain: "negative numbers not allowed #{negative_numbers.join(', ')}", status: :unprocessable_entity
       return
     end
+    numbers = numbers.reject { |num| num > 1000 }
 
     total = numbers.sum
     render plain: total.to_s  

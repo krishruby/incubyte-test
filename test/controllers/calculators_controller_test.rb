@@ -54,4 +54,10 @@ class CalculatorsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
     assert_includes response.body, "negative numbers not allowed -1, -2, -3"
   end
+
+  test "should ignore number greater than 1000" do
+    post calculators_add_url, params: { numbers: "1,1001" }
+    assert_response :success
+    assert_equal "1", response.body
+  end
 end
