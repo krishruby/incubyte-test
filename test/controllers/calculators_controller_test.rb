@@ -24,5 +24,11 @@ class CalculatorsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal "91", response.body
   end
+
+  test "should saperate string with new line and sum the numbers" do
+    post calculators_add_url, params: { numbers: "1\n2,3"  }
+    assert_response :success
+    assert_equal "6", response.body
+  end
   
 end
