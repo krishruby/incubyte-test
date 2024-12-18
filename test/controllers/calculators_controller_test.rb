@@ -18,5 +18,11 @@ class CalculatorsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal "3", response.body
   end
+
+  test "should return sum when multiple numbers string is passed" do 
+    post calculators_add_url, params: { numbers: "1,2,3,4,5,6,7,8,9,10,11,12,13" }
+    assert_response :success
+    assert_equal "91", response.body
+  end
   
 end
